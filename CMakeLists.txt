@@ -40,7 +40,7 @@ SET(THIRD_PARTY_LIBS
 
 # INTERNAL LIBS #
 SET(MATRIX_LIBS
-    develop
+    matrix
 )
 
 ####### BUILDING MIAN #######
