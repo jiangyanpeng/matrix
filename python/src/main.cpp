@@ -7,8 +7,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(matrix, m)
+PYBIND11_MODULE(pymatrix, m)
 {
-    m.def("__version__", []()
-          { return "0.0.1"; });
+    m.attr("__version__") = "0.0.1";
 }
