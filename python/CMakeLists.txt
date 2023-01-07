@@ -1,23 +1,41 @@
-cmake_minimum_required(VERSION 3.4)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.4)
 
-project(pymatrix)
+PROJECT(pymatrix)
 
-set(PACKAGE_VERSION ${matrix_VERSION_STRING})
-add_definitions(-DVERSION_INFO="${PACKAGE_VERSION}")
+SET(PACKAGE_VERSION ${matrix_VERSION_STRING})
+ADD_DEFINITIONS(-DVERSION_INFO="${PACKAGE_VERSION}")
 
-set( CMAKE_CXX_STANDARD 11 )
-set( CMAKE_CXX_STANDARD_REQUIRED ON )
+SET( CMAKE_CXX_STANDARD 11 )
+SET( CMAKE_CXX_STANDARD_REQUIRED ON )
 
-add_subdirectory(pybind11)
+####### DEPENDENCIES #######
+# FIND_PACKAGE(OpenCV 3 REQUIRED)
+# IF(OpenCV_FOUND)
+#     message(STATUS "OPENCV is enabled")
+#     message(STATUS "OpenCV_INCLUDE_DIRS=${OpenCV_INCLUDE_DIRS}")
+#     message(STATUS "OpenCV_LIBS=${OpenCV_LIBS}")
+# ELSE()
+#     message(STATUS "OPENCV is disabled or not found, " ${TARGET_NAME} " skiped")
+#     return()
+# ENDIF()
 
-include_directories(${pybind11_INCLUDE_DIR} ${PYTHON_INCLUDE_DIRS})
+ADD_SUBDIRECTORY(pybind11)
+
+####### INCLUDE #######
+INCLUDE_DIRECTORIES(
+    ${pybind11_INCLUDE_DIR} 
+    ${PYTHON_INCLUDE_DIRS} 
+    ${OpenCV_INCLUDE_DIRS})
+
+####### ADD PYBIND11 #######
 pybind11_add_module(pymatrix src/main.cpp)
-set_target_properties(pymatrix PROPERTIES OUTPUT_NAME "pymatrix")
+SET_TARGET_PROPERTIES(pymatrix PROPERTIES OUTPUT_NAME "pymatrix")
 
-## add matrix shared lib
-add_library(matrix SHARED IMPORTED)
-set_target_properties(matrix PROPERTIES IMPORTED_LOCATION /${CMAKE_CURRENT_BINARY_DIR}/../../lib/libmatrix.so)
+###### LINK MATRIX SHARED LIB ######
+ADD_LIBRARY(matrix SHARED IMPORTED)
+SET_TARGET_PROPERTIES(matrix PROPERTIES IMPORTED_LOCATION 
+    ${CMAKE_CURRENT_BINARY_DIR}/../../lib/libmatrix.so)
 
-target_link_libraries(pymatrix PUBLIC matrix)
-set_target_properties(pymatrix PROPERTIES PREFIX "" LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
-set_property(TARGET pymatrix PROPERTY FOLDER "python")
+TARGET_LINK_LIBRARIES(pymatrix PUBLIC matrix ${OpenCV_LIBS})
+SET_TARGET_PROPERTIES(pymatrix PROPERTIES PREFIX "" LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+SET_PROPERTY(TARGET pymatrix PROPERTY FOLDER "python")
