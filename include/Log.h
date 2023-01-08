@@ -20,7 +20,7 @@ namespace ppm
         TimeStamp(uint64_t timestamp) : timestamp_(timestamp) {}
 
         friend std::ostream &operator<<(std::ostream &os, const TimeStamp &timestamp);
-        const std::string to_string() const;
+        const std::string str() const;
 
     private:
         uint64_t timestamp_;

@@ -11,7 +11,7 @@ namespace ppm
     {
         va_list ap;
         va_start(ap, format);
-        int ret = vsnprintf(buffer, 100, format, ap);
+        int ret = vsnprintf(buffer, size, format, ap);
         va_end(ap);
         return ret;
     }
@@ -35,7 +35,7 @@ namespace ppm
         return os;
     }
 
-    const std::string TimeStamp::to_string() const
+    const std::string TimeStamp::str() const
     {
         std::stringstream ss;
         std::time_t time_t = timestamp_ / 1000000;
@@ -92,7 +92,7 @@ namespace ppm
             // todo
         }
         TimeStamp timestamp;
-        buffer_ += timestamp.to_string();
+        buffer_ += timestamp.str();
         char *logLevel;
         if (loglevel == LOG_LEVEL_DEBUG)
         {
@@ -111,9 +111,9 @@ namespace ppm
             logLevel = (char *)"ERROR";
         }
 
-        char locInfo[100];
+        char locInfo[200];
         char *format2 = (char *)"[PID:%4d][TID:%4d][%s][%s][%s:%d]";
-        PrintfToBuffer(locInfo, 100, format2,
+        PrintfToBuffer(locInfo, 200, format2,
                        getpid(),
                        std::this_thread::get_id(),
                        logLevel,
@@ -147,7 +147,7 @@ namespace ppm
                 break;
             }
         }
-
+        
         buffer_.clear();
     }
 }
