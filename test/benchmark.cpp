@@ -1,7 +1,9 @@
 #include <iostream>
 
+#include "Log.h"
+
 int main()
 {
-    std::cout << "hello ppm" << std::endl;
+    LOG_INFO("hello ppm");
     return 0;
 }

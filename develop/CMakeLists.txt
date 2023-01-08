@@ -1,5 +1,6 @@
 add_library(matrix SHARED
-	matrix/matrix.cpp
+    Log.cpp
+	matrix/Matrix.cpp
 )
 
 target_link_libraries(matrix
