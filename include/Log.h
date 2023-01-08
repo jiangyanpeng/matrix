@@ -8,8 +8,6 @@
 #include <fstream>
 #include <cinttypes>
 
-#include <iostream>
-
 #define MAX_SIZE 2 * 1024 * 1024 // 2M
 
 namespace ppm
