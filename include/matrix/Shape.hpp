@@ -126,7 +126,7 @@ namespace ppm
     };
 
     /// A Shape2D Class for Matrix
-    class Shape2D : public Shape<2>
+    class Shape2D final : public Shape<2>
     {
     public:
         /// Attributes
@@ -211,6 +211,64 @@ namespace ppm
         /// @return std::ostream
         ///
         friend std::ostream &operator<<(std::ostream &InOStream, const Shape2D &InShape)
+        {
+            InOStream << InShape.str();
+            return InOStream;
+        }
+    };
+
+    /// A Shape4D Class for Tensor
+    class Shape4D final : public Shape<4> {
+    public:
+        /// Attributes
+        /// @brief A Shape4D Class has num, channel, width, height
+        /// @param num     [N]
+        /// @param channel [C]
+        /// @param height  [H]
+        /// @param width   [W]
+        ///
+        uint32 num;
+        uint32 channel;
+        uint32 height;
+        uint32 width;
+
+        /// Constructor
+        /// @brief
+        ///
+        Shape4D() = default;
+
+        /// Constructor
+        /// @brief
+        ///
+        Shape4D(const std::initializer_list<uint32> &list)
+        {
+            if (list.size() == 1)
+            {
+                shape[0] = shape[1] = shape[2] = shape[4] = *list.begin();
+            }
+            else
+            {
+                size_t real_shape = list.size() == 0 ? 0 : 4;
+                std::copy_n(list.begin(), real_shape, shape.begin());
+            }
+        }
+
+        /// Equality operator
+        /// @brief
+        /// @param InOtherShape
+        /// @return bool
+        ///
+        bool operator==(const Shape4D &InOtherShape) const noexcept
+        {
+            return num == InOtherShape.num && channel == InOtherShape.channel && width == InOtherShape.width && height == InOtherShape.height;
+        }
+
+        /// IO operator for the Shape2D class
+        /// @param InOStream
+        /// @param InShape
+        /// @return std::ostream
+        ///
+        friend std::ostream &operator<<(std::ostream &InOStream, const Shape4D &InShape)
         {
             InOStream << InShape.str();
             return InOStream;
