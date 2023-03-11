@@ -31,9 +31,15 @@ SET(THIRD_PARTY_LIBS
 # INTERNAL LIBS #
 SET(MATRIX_LIBS matrix)
 
-####### BUILDING MIAN #######
-ADD_SUBDIRECTORY(test)
-
-####### INSTALL PYTHON#######
+####### INSTALL PYTHON #######
 INSTALL(DIRECTORY  
     ${PROJECT_SOURCE_DIR}/python DESTINATION ${PROJECT_SOURCE_DIR}/build)
+
+####### UINT TEST   ##########
+# ENABLE_TESTING()
+SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
+# SET(GTEST_LIB gtest gtest_main)
+# include(googletest)
+ADD_SUBDIRECTORY(test)
+# ADD_SUBDIRECTORY(third_party/googletest)
+# INCLUDE_DIRECTORIES(third_party/googletest/include)

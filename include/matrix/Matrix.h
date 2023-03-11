@@ -21,7 +21,7 @@
 
 #include "Log.h"
 #include "Type.hpp"
-#include "matrix/Shape.hpp"
+#include "Shape.hpp"
 
 namespace ppm
 {
@@ -391,7 +391,7 @@ namespace ppm
 
     private:
         //====================================Attributes==============================
-        Shape2D shape_{R, C};
+        Shape<2> shape_{R, C};
     };
 } // namespace ppm
 #endif //__PPM_MATRIX_H__
