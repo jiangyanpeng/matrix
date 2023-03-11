@@ -40,6 +40,6 @@ INSTALL(DIRECTORY
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 # SET(GTEST_LIB gtest gtest_main)
 # include(googletest)
-# ADD_SUBDIRECTORY(test)
+ADD_SUBDIRECTORY(test)
 # ADD_SUBDIRECTORY(third_party/googletest)
 # INCLUDE_DIRECTORIES(third_party/googletest/include)

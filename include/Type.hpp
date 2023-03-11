@@ -3,7 +3,7 @@
 #include <cmath>
 #include <complex>
 #include <limits>
-
+#include <type_traits>
 namespace ppm
 {
     namespace details
@@ -65,5 +65,10 @@ namespace ppm
     using enable_arithmetic_type_t = typename std::enable_if<std::is_arithmetic<T>::value, RT>::type;
     template <typename T, typename RT = void>
     using disable_arithmetic_type_t = typename std::enable_if<!std::is_arithmetic<T>::value, RT>::type;
+
+    /// Alias template for enable_if
+    template <bool _Cond, typename _Tp = void>
+    using enable_if_t = typename std::enable_if<_Cond, _Tp>::type;
+
 }
 #endif // __PPM_MATRIX_HPP__
